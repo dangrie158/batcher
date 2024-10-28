@@ -6,7 +6,8 @@
             "name": "Launch Program",
             "module": "slurmbatcher",
             "args": [
-                "${input:config}"
+                "${input:config}",
+                "--dry-run"
             ],
             "console": "integratedTerminal"
         }
@@ -15,7 +16,7 @@
         {
             "type": "promptString",
             "id": "config",
-            "default": "tests/sample.toml",
+            "default": "examples/sample.toml",
             "description": "Path to the configuration"
         }
     ]

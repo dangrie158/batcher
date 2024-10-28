@@ -8,7 +8,7 @@ from pathlib import Path
 from slurmbatcher import shfotmat
 from slurmbatcher.cli import cli
 from slurmbatcher.types import Configuration
-from slurmbatcher.utils import dict_product, get_fstring_parameters
+from slurmbatcher.utils import ParameterFormatter, dict_product, get_fstring_parameters
 
 logger = logging.getLogger(__name__)
 
@@ -72,12 +72,12 @@ def create_sbatch_scripts(config: Configuration):
         for parameter_name in rest_params
     )
 
-    final_command = config.command_template.format_map(
-        {**parameter_getters, "**parameters": rest_params_string}
+    final_command = ParameterFormatter().format(
+        config.command_template,
+        **{**parameter_getters, "**parameters": rest_params_string},
     )
 
-    sbatch_script += f"\n{final_command}\n"
-
+    sbatch_script += f"\n{final_command}"
     return sbatch_script
 
 

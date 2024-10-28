@@ -1,11 +1,6 @@
-#command_template = """\
-#    enroot start --rw --mount {workdir}:{workdir} vscode-server \
-#    /opt/miniconda3/bin/conda run --name evoprompt --cwd {workdir} \
-#    python $HOME/evoprompt/main.py {**parameters}\
-#"""
 command_template="""\
     echo --cwd {workdir} \
-    python $HOME/evoprompt/main.py --task {task} --evaluation-strategy {evaluation-strategy} --seed {seed} {**parameters}\
+    python $HOME/evoprompt/main.py --task {task} {evaluation-strategy:option} --{seed:name} {seed} {**parameters}\
 """
 [sbatch.parameters]
 partition = "gpu"
