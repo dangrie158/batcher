@@ -1,0 +1,15 @@
+[tool.poetry]
+name = "batcher"
+version = "0.1.0"
+description = ""
+authors = ["Daniel Grießhaber <griesshaber@hdm-stuttgart.de>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+pydantic = "^2.9.2"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

@@ -1,0 +1,22 @@
+{
+    "configurations": [
+        {
+            "type": "debugpy",
+            "request": "launch",
+            "name": "Launch Program",
+            "module": "batcher",
+            "args": [
+                "${input:config}"
+            ],
+            "console": "integratedTerminal"
+        }
+    ],
+    "inputs": [
+        {
+            "type": "promptString",
+            "id": "config",
+            "default": "tests/sample.toml",
+            "description": "Path to the configuration"
+        }
+    ]
+}
