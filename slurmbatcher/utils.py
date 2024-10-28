@@ -46,7 +46,7 @@ class ParameterFormatter(Formatter):
             case "" | "value":
                 return value
             case "option":
-                return f"--{name}={value}"
+                return f"--{name} {value}"
             case "name":
                 return name
             case _:
