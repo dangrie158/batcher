@@ -1,10 +1,16 @@
-# batcher
+# slurmbatcher
 
 Easily create sbatch scripts for running jobs on a cluster.
 
+## Installation
+
+```bash
+pip install slurmbatcher
+```
+
 ## Example:
 
-running `python -m batcher example.toml` with the following `example.toml`:
+running `slurmbatcher example.toml` with the following `example.toml`:
 
 ```toml
 command_template="""\

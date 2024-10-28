@@ -81,7 +81,7 @@ def create_sbatch_scripts(config: Configuration):
     return sbatch_script
 
 
-if __name__ == "__main__":
+def main():
     args = cli.parse_args()
     cwd = Path.cwd()
 
@@ -104,3 +104,7 @@ if __name__ == "__main__":
         script_file.flush()
 
         subprocess.run(["sbatch", "--chdir", cwd.absolute(), script_file.name])
+
+
+if __name__ == "__main__":
+    main()
