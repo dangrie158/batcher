@@ -12,8 +12,10 @@ nodelist = "tars"
 
 
 [matrix.parameters]
-task = ["sst2", "sst5"]
 workdir="$HOME/evoprompt"
-rest=["1", 2]
 seed = 42
 evaluation-strategy = ["simple", "early-stopping", "shortest-first", "hardest-first"]
+
+[matrix.jobs]
+rest=["1", 2]
+task = ["sst2", "sst5"]

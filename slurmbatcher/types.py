@@ -1,4 +1,4 @@
-from typing import Annotated
+from typing import Annotated, NamedTuple
 
 from pydantic import BaseModel, BeforeValidator
 
@@ -21,3 +21,8 @@ class Configuration(BaseModel):
     command_template: str
     sbatch: SBatchSettings
     matrix: Matrix
+
+
+class JobScript(NamedTuple):
+    job_config: dict[str, str]
+    sbatch_script: str
