@@ -142,7 +142,7 @@ def main():
     for job_config, script in job_scripts:
         # srteam the script to sbatch stdin
         process = subprocess.Popen(
-            ["echo"],
+            ["sbatch"],
             stdin=subprocess.PIPE,
             stdout=subprocess.PIPE,
             stderr=subprocess.PIPE,
