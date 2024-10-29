@@ -122,7 +122,7 @@ def main():
     console = Console()
 
     if not args.config.exists():
-        print(f"config file {args.config} does not exist")
+        console.print(f"config file {args.config} does not exist")
         exit(1)
 
     with open(args.config, "rb") as config_file:
@@ -139,7 +139,22 @@ def main():
         exit(0)
 
     for job_config, script in job_scripts:
-        subprocess.run(["sbatch", script])
+        # srteam the script to sbatch stdin
+        process = subprocess.Popen(
+            ["sbatch"],
+            stdin=subprocess.PIPE,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+            text=True,
+        )
+        process.stdin.write(script)
+        process.stdin.close()
+        stdout, stderr = process.communicate()
+        if process.returncode != 0:
+            console.print(f"Error submitting job: {stderr}")
+            exit(1)
+        job_id = stdout.split()[-1].strip()
+        console.print(f"Submitted job {job_config} as job {job_id}")
 
 
 if __name__ == "__main__":
