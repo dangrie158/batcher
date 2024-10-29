@@ -1,5 +1,6 @@
 import subprocess
 import tomllib
+from contextlib import suppress
 from math import prod
 from typing import Generator, Iterable
 
@@ -141,19 +142,19 @@ def main():
     for job_config, script in job_scripts:
         # srteam the script to sbatch stdin
         process = subprocess.Popen(
-            ["sbatch"],
+            ["echo"],
             stdin=subprocess.PIPE,
             stdout=subprocess.PIPE,
             stderr=subprocess.PIPE,
             text=True,
         )
-        process.stdin.write(script)
-        process.stdin.close()
-        stdout, stderr = process.communicate()
+        stdout, stderr = process.communicate(script)
         if process.returncode != 0:
             console.print(f"Error submitting job: {stderr}")
             exit(1)
-        job_id = stdout.split()[-1].strip()
+        job_id = "[italic]unknown[/italic]"
+        with suppress(Exception):
+            job_id = stdout.split()[-1].strip()
         console.print(f"Submitted job {job_config} as job {job_id}")
 
 
