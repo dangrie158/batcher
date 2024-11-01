@@ -23,6 +23,10 @@ def sanity_check(config: Configuration):
     if not config.matrix.parameters:
         logger.warning("No parameters found in matrix")
 
+    if "array" in config.sbatch.parameters:
+        logger.error("Don't specify 'array' in sbatch.parameters, this will be automatically created")
+        exit(1)
+
     for parameter_name, values in config.matrix.parameters.items():
         if not values:
             logger.warning(f"No values found for parameter '{parameter_name}'")

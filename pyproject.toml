@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "slurmbatcher"
-version = "0.3.2"
+version = "0.3.3"
 description = ""
 authors = ["Daniel Grießhaber <griesshaber@hdm-stuttgart.de>"]
 readme = "README.md"
