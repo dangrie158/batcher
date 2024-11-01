@@ -1,9 +1,12 @@
 [tool.poetry]
 name = "slurmbatcher"
-version = "0.3.3"
+version = "0.3.4"
 description = ""
 authors = ["Daniel Grießhaber <griesshaber@hdm-stuttgart.de>"]
 readme = "README.md"
+exclude = ["examples"]
+license = "MIT"
+repository = "https://github.com/dangrie158/slurmbatcher"
 
 [tool.poetry.dependencies]
 python = "^3.11"

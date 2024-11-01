@@ -67,9 +67,11 @@ def create_sbatch_scripts(config: Configuration) -> Iterable[JobScript]:
 
 
 def create_sbatch_script(job_config: dict[str, str], config: Configuration) -> JobScript:
+    formatter = ParameterFormatter()
     sbatch_script = shformat.SHEBANG + "\n"
     for key, value in config.sbatch.parameters.items():
-        sbatch_script += f"{shformat.sbatch_parameter(key, value)}\n"
+        formatted_value = formatter.format(value, **job_config)
+        sbatch_script += f"{shformat.sbatch_parameter(key, formatted_value)}\n"
 
     command_parameters = get_fstring_parameters(config.command_template)
     parameter_arities = [len(mapping) for mapping in config.matrix.parameters.values()]
@@ -113,7 +115,7 @@ def create_sbatch_script(job_config: dict[str, str], config: Configuration) -> J
         f"--{parameter_name}={parameter_getters[parameter_name]}" for parameter_name in rest_params
     )
 
-    final_command = ParameterFormatter().format(
+    final_command = formatter.format(
         config.command_template,
         **{**parameter_getters, "**parameters": rest_params_string},
     )
@@ -139,8 +141,11 @@ def main():
 
     if args.dry_run:
         for job_config, script in job_scripts:
-            formatted_script = Syntax(script, "bash", line_numbers=True)
-            console.print(Panel.fit(formatted_script, title=str(job_config)))
+            if args.porcelain:
+                print(script)
+            else:
+                formatted_script = Syntax(script, "bash", line_numbers=True)
+                console.print(Panel.fit(formatted_script, title=str(job_config)))
         exit(0)
 
     for job_config, script in job_scripts:

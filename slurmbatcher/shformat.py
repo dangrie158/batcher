@@ -2,7 +2,7 @@ SHEBANG = "#!/bin/bash"
 
 
 def sbatch_parameter(name: str, value: str) -> str:
-    return f"#SBATCH --{name}={value}"
+    return f"#SBATCH --{name}='{value}'"
 
 
 def safe_variable_name(name: str) -> str:

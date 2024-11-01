@@ -11,16 +11,17 @@ pip install slurmbatcher
 ## Usage
 
 ```bash
-usage: slurmbatcher [-h] [--dry-run] config
+usage: slurmbatcher [-h] [--dry-run] [--porcelain] config
 
 create sbatch configs easily
 
 positional arguments:
-  config      path to the config file
+  config       path to the config file
 
 options:
-  -h, --help  show this help message and exit
-  --dry-run   print sbatch script instead of running it
+  -h, --help   show this help message and exit
+  --dry-run    print sbatch script instead of running it
+  --porcelain  parseable output without any fuzz
 ```
 
 ## Configuration
@@ -41,6 +42,8 @@ You can use format specifiers to format the inserted values. The format specifie
 
 ### `sbatch.parameters` section
 You can specify additional parameters for the sbatch script in the `sbatch.parameters` section. The parameters are written as `#SBATCH --parameter-name=value` lines in the generated sbatch script. You can use all [parameters available](https://slurm.schedmd.com/sbatch.html) in the sbatch command, except for `array` as this is automatically generated.
+
+You can also use placeholders for parameters from `matrix.jobs` in the `sbatch.parameters` section. This can be used to name the jobs depending on the parameters. The placeholders work the same way as in the `command_template` section.
 
 ### `matrix.parameters` section
 The `matrix.parameters` section contains the parameters that will be used to generate the cartesian product of all possible parameter combinations. Each parameter is specified as a list of values or a scalar. The cartesian product of all parameter values will be generated and each combination will be used to generate a task in the array job.

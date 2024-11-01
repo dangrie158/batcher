@@ -23,11 +23,7 @@ def to_string_list(input_: Any) -> Iterable[str]:
 
 
 def get_fstring_parameters(string: str) -> Iterable[str]:
-    return [
-        field_name
-        for _, field_name, _, _ in Formatter().parse(string)
-        if field_name is not None
-    ]
+    return [field_name for _, field_name, _, _ in Formatter().parse(string) if field_name is not None]
 
 
 class ParameterFormatter(Formatter):
