@@ -1,0 +1,24 @@
+command_template="""\
+    enroot start --rw --mount {workdir}:{workdir} vscode-server \
+    /opt/miniconda3/bin/conda run --name evoprompt --cwd {workdir} python {workdir}/main.py {**parameters}
+"""
+[sbatch.parameters]
+partition = "gpu"
+gpus = 1
+mail-type = "END,FAIL"
+mail-user = "griesshaber@hdm-stuttgart.de"
+cpus-per-task = 10
+nodelist = "tars"
+job-name = "evoprompt-strategies-{task}"
+
+[matrix.parameters]
+workdir="$HOME/evoprompt"
+evaluation-strategy = ["simple", "early-stopping", "shortest-first", "hardest-first"]
+wandb-project = "evaluation-strategies"
+evolution-algorithm = "de-cot"
+n-evaluation-demo = 1
+evolution-engine = "hfchat"
+seed = 42
+
+[matrix.jobs]
+task = ["squad", "sst2-hf", "sst2", "sst5", "mr-hf", "mr", "cr", "asset", "subj", "sams", "agn", "trec"]
