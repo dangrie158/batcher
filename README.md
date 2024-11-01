@@ -67,6 +67,7 @@ mail-type = "END,FAIL"
 mail-user = "griesshaber@hdm-stuttgart.de"
 cpus-per-task = 4
 nodelist = "tars"
+job-name = "evaluate-{task}"
 
 
 [matrix.parameters]
@@ -82,14 +83,15 @@ task = ["sst2", "sst5"]
 will generate 2 sbatch scripts and submit it to the cluster. The generated sbatch scripts will look like this:
 
 ```bash
- 1 #!/bin/bash
- #SBATCH --partition=gpu
- #SBATCH --gpus=1
- #SBATCH --mail-type=END,FAIL
- #SBATCH --mail-user=griesshaber@hdm-stuttgart.de
- #SBATCH --cpus-per-task=4
- #SBATCH --nodelist=tars
- #SBATCH --array=0-3
+#!/bin/bash
+#SBATCH --partition=gpu
+#SBATCH --gpus=1
+#SBATCH --mail-type=END,FAIL
+#SBATCH --mail-user=griesshaber@hdm-stuttgart.de
+#SBATCH --cpus-per-task=4
+#SBATCH --nodelist=tars
+#SBATCH --job-name=evaluate-sst2
+#SBATCH --array=0-3
 
 task='sst5'
 workdir='$HOME/evoprompt'
