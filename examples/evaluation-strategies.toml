@@ -1,7 +1,10 @@
+# slurmbatcher configuration file to evaluate the impact of different evaluation strategies on the performance of the evolution algorithm
+
 command_template="""\
     enroot start --rw --mount {workdir}:{workdir} vscode-server \
     /opt/miniconda3/bin/conda run --name evoprompt --cwd {workdir} python {workdir}/main.py {**parameters}
 """
+
 [sbatch.parameters]
 partition = "gpu"
 gpus = 1
