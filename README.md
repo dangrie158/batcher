@@ -8,6 +8,21 @@ Easily create sbatch scripts for running jobs on a cluster.
 pip install slurmbatcher
 ```
 
+## Usage
+
+```bash
+usage: slurmbatcher [-h] [--dry-run] config
+
+create sbatch configs easily
+
+positional arguments:
+  config      path to the config file
+
+options:
+  -h, --help  show this help message and exit
+  --dry-run   print sbatch script instead of running it
+```
+
 ## Configuration
 Create a configuration file in toml format. The configuration file must contain a `command_template` and a `matrix.parameters` section. The `command_template` is a string that will be used to generate the sbatch script. The `matrix.parameters` section contains the parameters that will be used to generate the cartesian product of all possible parameter combinations.
 Additional parameters can be added to the `sbatch.parameters` section to specify sbatch parameters.
